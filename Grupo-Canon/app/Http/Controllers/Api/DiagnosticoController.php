@@ -1,12 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller; // <- Esta línea es clave
 use App\Models\Diagnostico;
 use Illuminate\Http\Request;
+use App\Models\Paciente;
 
 class DiagnosticoController extends Controller
 {
+    public function guardar(Request $request)
+    {
+        $paciente = Paciente::create($request->only('nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad'));
+
+        foreach ($request->sintomas as $id_sintoma) {
+            Diagnostico::create([
+                'id_paciente' => $paciente->id_paciente,
+                'id_sintoma' => $id_sintoma
+            ]);
+        }
+
+        return redirect()->route('invitado')->with('success', 'Diagnóstico guardado');
+    }
     public function index()
     {
         return response()->json(Diagnostico::all());

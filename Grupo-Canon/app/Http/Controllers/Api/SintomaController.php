@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller; // <- Esta línea es clave
 use App\Models\Sintoma;
 use Illuminate\Http\Request;
 
