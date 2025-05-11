@@ -1,11 +1,18 @@
 <div class="container mt-5">
-    <h2 class="mb-4">Registro de Paciente (Modo Invitado)</h2>
+    <h2 class="mb-4">Registro de Paciente</h2>
 
     @if (session()->has('success'))
-        <div class="alert alert-success">
+        <div 
+            x-data="{ show: true }" 
+            x-init="setTimeout(() => show = false, 3000)" 
+            x-show="show"
+            x-transition
+            class="alert alert-success"
+        >
             {{ session('success') }}
         </div>
     @endif
+
 
     <form wire:submit.prevent="guardar">
         <div class="row">
@@ -50,12 +57,21 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                <label for="sintomas" class="form-label">Síntomas</label>
-                <select id="sintomas" wire:model="sintomas" multiple class="form-select" size="6">
+                <label class="form-label">Síntomas</label>
+                <div class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
                     @foreach ($todosLosSintomas as $sintoma)
-                        <option value="{{ $sintoma->id_sintoma }}">{{ $sintoma->nombre }}</option>
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                type="checkbox"
+                                id="sintoma{{ $sintoma->id_sintoma }}"
+                                wire:model="sintomas"
+                                value="{{ $sintoma->id_sintoma }}">
+                            <label class="form-check-label" for="sintoma{{ $sintoma->id_sintoma }}">
+                                {{ $sintoma->nombre }}
+                            </label>
+                        </div>
                     @endforeach
-                </select>
+                </div>
                 @error('sintomas') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
         </div>

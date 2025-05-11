@@ -15,7 +15,7 @@ class GuestDashboard extends Component
 
     public function mount()
     {
-        $this->todosLosSintomas = Sintoma::all();
+        $this->todosLosSintomas = Sintoma::orderBy('nombre')->get();
     }
 
     public function guardar()
