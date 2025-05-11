@@ -3,12 +3,12 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 
 class Login extends Component
 {
     public $email = '';
     public $password = '';
+
 
     public function login()
     {
@@ -27,18 +27,9 @@ class Login extends Component
 
     public function loginAsGuest()
     {
-        $guest = \App\Models\User::where('email', 'guest@example.com')->first();
-
-        if (!$guest) {
-            $guest = \App\Models\User::create([
-                'name' => 'Invitado',
-                'email' => 'guest@example.com',
-                'password' => bcrypt('guest123'), // puedes usar un valor fuerte
-            ]);
-        }
-
-        Auth::login($guest);
-        return redirect()->intended('/');
+        \Log::info('Usuario invitado accediendo al sistema');
+        session(['es_invitado' => true]);
+        return redirect()->route('invitado');
     }
 
     public function render()

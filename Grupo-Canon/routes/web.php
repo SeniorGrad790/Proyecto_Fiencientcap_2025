@@ -2,14 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\GuestDashboard;
+use App\Livewire\Login;
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', GuestDashboard::class)->name('invitado');
+Route::get('/login', Login::class)->name('login');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

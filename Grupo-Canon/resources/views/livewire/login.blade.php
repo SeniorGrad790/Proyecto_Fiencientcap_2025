@@ -18,6 +18,6 @@
     </form>
 
     <div class="mt-4 text-center">
-        <button wire:click="loginAsGuest" class="text-blue-600 hover:underline">Entrar como invitado</button>
+        <button wire:click="loginAsGuest" type="button" class="text-blue-600 hover:underline">Entrar como invitado</button>
     </div>
 </div>
