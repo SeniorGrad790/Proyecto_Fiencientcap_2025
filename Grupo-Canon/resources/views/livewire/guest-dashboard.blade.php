@@ -2,6 +2,21 @@
     <h2 class="mb-4">Registro de Paciente</h2>
 
     @if (session()->has('success'))
+        @if (session()->has('diagnostico'))
+            <div class="mt-3">
+                <h5>Diagnóstico estimado:</h5>
+                <ul class="list-group">
+                    @foreach (session('diagnostico') as $item)
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>{{ $item['enfermedad'] }}</span>
+                            <span class="badge bg-primary">{{ $item['porcentaje'] }}%</span>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+ 
         <div 
             x-data="{ show: true }" 
             x-init="setTimeout(() => show = false, 3000)" 
