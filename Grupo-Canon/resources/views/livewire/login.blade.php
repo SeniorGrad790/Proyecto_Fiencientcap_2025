@@ -17,7 +17,4 @@
         <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Entrar</button>
     </form>
 
-    <div class="mt-4 text-center">
-        <button wire:click="loginAsGuest" type="button" class="text-blue-600 hover:underline">Entrar como invitado</button>
-    </div>
 </div>
