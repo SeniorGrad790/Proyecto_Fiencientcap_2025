@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Paciente;
 use App\Models\Sintoma;
 use App\Models\Diagnostico;
+use App\Services\DiagnosticoService;
+
 
 class GuestDashboard extends Component
 {
@@ -30,7 +32,6 @@ class GuestDashboard extends Component
             'sintomas' => 'array|min:1',
         ]);
 
-        // Crear paciente
         $paciente = Paciente::create([
             'nombre' => $this->nombre,
             'apellido' => $this->apellido,
@@ -40,7 +41,6 @@ class GuestDashboard extends Component
             'ciudad' => $this->ciudad,
         ]);
 
-        // Crear diagnóstico por cada síntoma seleccionado
         foreach ($this->sintomas as $idSintoma) {
             Diagnostico::create([
                 'id_paciente' => $paciente->id_paciente,
@@ -48,10 +48,18 @@ class GuestDashboard extends Component
             ]);
         }
 
+        // Diagnóstico automático
+        $diagnosticoService = new DiagnosticoService();
+        $resultados = $diagnosticoService->diagnosticar($this->sintomas);
+
+        // Puedes guardarlo, mostrarlo o procesarlo
+        // Ejemplo: mostrarlo en la vista
         session()->flash('success', 'Paciente y síntomas guardados exitosamente.');
+        session()->flash('diagnostico', $resultados);
 
         $this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas']);
     }
+
 
     public function goToLogin()
     {
