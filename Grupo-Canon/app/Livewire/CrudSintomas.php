@@ -36,8 +36,9 @@ class CrudSintomas extends Component
     public function editar($id)
     {
         $sintoma = Sintoma::findOrFail($id);
+        \Log::info("sintoma {$sintoma} {$sintoma->nombre}");
         $this->sintoma_id = $sintoma->id_sintoma;
-        $this->nombre = $sintoma->nombre;
+        $this->nombre = "ssssss";//$sintoma->nombre;
         $this->modoEdicion = true;
     }
 
