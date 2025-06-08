@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             SintomasSeeder::class,
             EnfermedadesSeeder::class,
             SintomasEnfermedadesSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
