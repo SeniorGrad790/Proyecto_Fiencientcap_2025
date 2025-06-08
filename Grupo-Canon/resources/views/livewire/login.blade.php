@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded">
     <h2 class="text-2xl font-bold mb-4 text-center">Iniciar Sesión</h2>
 
@@ -16,8 +19,5 @@
 
         <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Entrar</button>
     </form>
-
-    <div class="mt-4 text-center">
-        <button wire:click="loginAsGuest" type="button" class="text-blue-600 hover:underline">Entrar como invitado</button>
-    </div>
 </div>
+@endsection

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class Login extends Component
 {
@@ -18,22 +19,18 @@ class Login extends Component
         ]);
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+            \Log::info('Usuario autenticado: ' . $this->email);
             session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->intended('/dashboard');
         }
-
+        \Log::warning('Intento de inicio de sesión fallido para: ' . $this->email);
         $this->addError('email', 'Credenciales inválidas.');
     }
 
-    public function loginAsGuest()
-    {
-        \Log::info('Usuario invitado accediendo al sistema');
-        session(['es_invitado' => true]);
-        return redirect()->route('invitado');
-    }
 
     public function render()
     {
-        return view('livewire.login');
+        return view('livewire.login')->layout('layouts.app');
     }
+
 }
