@@ -29,7 +29,7 @@
         </div>
 
         <div x-show="seccion === 'enfermedades'" x-cloak>
-            @livewire('crud-sintomas')
+            @livewire('crud-enfermedades')
         </div>
 
         <div x-show="seccion === 'relacion'" x-cloak>
