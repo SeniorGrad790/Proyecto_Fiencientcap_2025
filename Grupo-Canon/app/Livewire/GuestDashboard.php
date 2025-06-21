@@ -12,6 +12,7 @@ use App\Services\DiagnosticoService;
 class GuestDashboard extends Component
 {
     public $nombre, $apellido, $edad, $sexo, $barrio, $ciudad;
+    public $nro_documento = '0'; // Default value
     public $sintomas = [];
     public $todosLosSintomas = [];
 
@@ -23,6 +24,7 @@ class GuestDashboard extends Component
     public function guardar()
     {
         $this->validate([
+            'nro_documento' => 'required|string|max:20',
             'nombre' => 'required|string',
             'apellido' => 'required|string',
             'edad' => 'required|integer',
@@ -33,6 +35,7 @@ class GuestDashboard extends Component
         ]);
 
         $paciente = Paciente::create([
+            'nro_documento' => $this->nro_documento,
             'nombre' => $this->nombre,
             'apellido' => $this->apellido,
             'edad' => $this->edad,
@@ -57,7 +60,7 @@ class GuestDashboard extends Component
         session()->flash('success', 'Paciente y síntomas guardados exitosamente.');
         session()->flash('diagnostico', $resultados);
 
-        $this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas']);
+        $this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas', 'nro_documento']);
     }
 
 

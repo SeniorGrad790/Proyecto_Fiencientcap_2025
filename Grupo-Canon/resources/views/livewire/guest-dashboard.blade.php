@@ -31,6 +31,12 @@
 
     <form wire:submit.prevent="guardar">
         <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="nro_documento" class="form-label">Documento</label>
+                <input id="nro_documento" type="text" wire:model="nro_documento" class="form-control">
+                @error('nro_documento') <small class="text-danger">{{ $message }}</small> @enderror
+            </div>
+
             <div class="col-md-6 mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input id="nombre" type="text" wire:model="nombre" class="form-control">
