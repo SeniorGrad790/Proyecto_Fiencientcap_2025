@@ -9,7 +9,7 @@ class Paciente extends Model
     protected $primaryKey = 'id_paciente';
     public $timestamps = false;
 
-    protected $fillable = ['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad'];
+    protected $fillable = ['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'nro_documento'];
 
     public function diagnosticos()
     {
