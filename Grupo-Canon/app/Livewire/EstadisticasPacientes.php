@@ -11,6 +11,7 @@ class EstadisticasPacientes extends Component
     public $edadData = [];
     public $barrioData = [];
     public $sintomaData = [];
+    public $enfermedadData = [];
 
 
     public int $topNBarrios = 6;
@@ -196,6 +197,35 @@ class EstadisticasPacientes extends Component
         }
 
         $this->sintomaData = [
+            'labels' => $labels,
+            'values' => $values,
+        ];
+
+        // --- Gráfico por Enfermedades más diagnosticadas ---
+        $frecuenciaEnfermedades = \App\Models\PacienteDiagnostico::with('enfermedad')
+            ->get()
+            ->groupBy('id_enfermedad')
+            ->map(function ($items) {
+                return [
+                    'nombre' => $items->first()->enfermedad->nombre ?? 'Desconocido',
+                    'count' => $items->count(),
+                ];
+            })
+            ->sortByDesc('count')
+            ->values();
+
+        $topEnfermedades = $frecuenciaEnfermedades->take(6);
+        $otros = $frecuenciaEnfermedades->skip(6)->sum('count');
+
+        $labels = $topEnfermedades->pluck('nombre')->toArray();
+        $values = $topEnfermedades->pluck('count')->toArray();
+
+        if ($otros > 0) {
+            $labels[] = 'Otros';
+            $values[] = $otros;
+        }
+
+        $this->enfermedadData = [
             'labels' => $labels,
             'values' => $values,
         ];

@@ -34,6 +34,11 @@
             <canvas id="sintomaChart" width="400" height="400"></canvas>
         </div>
 
+        <!-- Gráfico por Enfermedades -->
+        <div class="bg-white shadow rounded p-4 col-span-1 md:col-span-2">
+            <h3 class="text-lg font-semibold mb-2">Enfermedades más diagnosticadas</h3>
+            <canvas id="enfermedadChart" width="400" height="400"></canvas>
+        </div>
 
     </div>
 
@@ -41,6 +46,8 @@
     <script>
         let ciudadChartInstance = null;
         let sintomaChartInstance = null;
+        let enfermedadChartInstance = null;
+
         document.addEventListener('DOMContentLoaded', function () {
             const barrioChart = new Chart(document.getElementById('barrioChart').getContext('2d'), {
                 type: 'pie',
@@ -102,6 +109,20 @@
                     datasets: [{
                         data: @json($sintomaData['values']),
                         backgroundColor: ['#F43F5E', '#8B5CF6', '#10B981', '#F59E0B', '#3B82F6', '#EC4899', '#6B7280'],
+                    }]
+                },
+                options: { responsive: false }
+            });
+
+             // Enfermedades
+            if (enfermedadChartInstance) enfermedadChartInstance.destroy();
+            enfermedadChartInstance = new Chart(document.getElementById('enfermedadChart').getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: @json($enfermedadData['labels']),
+                    datasets: [{
+                        data: @json($enfermedadData['values']),
+                        backgroundColor: ['#22D3EE', '#6366F1', '#F43F5E', '#10B981', '#F59E0B', '#3B82F6', '#6B7280'],
                     }]
                 },
                 options: { responsive: false }
