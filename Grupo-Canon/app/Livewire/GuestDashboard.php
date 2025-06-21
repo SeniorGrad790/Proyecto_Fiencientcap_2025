@@ -7,7 +7,8 @@ use App\Models\Paciente;
 use App\Models\Sintoma;
 use App\Models\Diagnostico;
 use App\Services\DiagnosticoService;
-
+use App\Models\PacienteDiagnostico;
+use App\Models\Enfermedad;
 
 class GuestDashboard extends Component
 {
@@ -54,6 +55,13 @@ class GuestDashboard extends Component
         // Diagnóstico automático
         $diagnosticoService = new DiagnosticoService();
         $resultados = $diagnosticoService->diagnosticar($this->sintomas);
+        $primerResultado = reset($resultados);
+        $enfermedad = Enfermedad::where('nombre', $primerResultado['enfermedad'])->first();
+        
+        PacienteDiagnostico::create([
+            'id_paciente' => $paciente->id_paciente,
+            'id_enfermedad' => $enfermedad->id_enfermedad,
+        ]);
 
         // Puedes guardarlo, mostrarlo o procesarlo
         // Ejemplo: mostrarlo en la vista
