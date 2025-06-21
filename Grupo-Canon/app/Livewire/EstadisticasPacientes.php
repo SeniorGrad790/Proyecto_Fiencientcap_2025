@@ -13,11 +13,24 @@ class EstadisticasPacientes extends Component
 
     public int $topNBarrios = 6;
 
-    protected $updatesQueryString = ['topNBarrios'];
+    //protected $updatesQueryString = ['topNBarrios'];
+
+    public $ciudadData = [];
+    public int $topNCiudades = 6;
+
+    protected $updatesQueryString = ['topNBarrios', 'topNCiudades']; // opcional
+
 
     protected $rules = [
         'topNBarrios' => 'required|integer|min:1|max:20',
+        'topNCiudades' => 'required|integer|min:1|max:20',
     ];
+
+
+    public function updatedTopNCiudades()
+    {
+        $this->generarEstadisticas();
+    }
 
     public function updatedTopNBarrios()
     {
@@ -112,6 +125,50 @@ class EstadisticasPacientes extends Component
             'labels' => $labels,
             'values' => $values,
         ];
+
+        // --- Gráfico por Ciudad (normalizado) ---
+    $ciudadesRaw = [];
+
+    foreach ($pacientes as $p) {
+        $original = trim($p->ciudad);
+        $normalizado = $this->normalizarTexto($original);
+
+        if (!isset($ciudadesRaw[$normalizado])) {
+            $ciudadesRaw[$normalizado] = ['count' => 0, 'originales' => []];
+        }
+
+        $ciudadesRaw[$normalizado]['count']++;
+        $ciudadesRaw[$normalizado]['originales'][$original] =
+            ($ciudadesRaw[$normalizado]['originales'][$original] ?? 0) + 1;
+    }
+
+    $ciudadesFinal = collect($ciudadesRaw)->map(function ($info) {
+        arsort($info['originales']);
+        $nombreMasFrecuente = array_key_first($info['originales']);
+        return [
+            'nombre' => $nombreMasFrecuente,
+            'count' => $info['count']
+        ];
+    });
+
+    $ciudadesOrdenadas = $ciudadesFinal->sortByDesc('count');
+
+    $top = $ciudadesOrdenadas->take($this->topNCiudades);
+    $otros = $ciudadesOrdenadas->skip($this->topNCiudades)->sum('count');
+
+    $labels = $top->pluck('nombre')->toArray();
+    $values = $top->pluck('count')->toArray();
+
+    if ($otros > 0) {
+        $labels[] = 'Otros';
+        $values[] = $otros;
+    }
+
+    $this->ciudadData = [
+        'labels' => $labels,
+        'values' => $values,
+    ];
+
     }
 
     /**

@@ -21,10 +21,18 @@
             <canvas id="barrioChart" width="300" height="300"></canvas>
         </div>
 
+        <!-- Gráfico por Ciudad -->
+        <div class="bg-white shadow rounded p-4 col-span-1 md:col-span-2">
+
+            <h3 class="text-lg font-semibold mb-2">Distribución por Ciudad</h3>
+            <canvas id="ciudadChart" width="300" height="300"></canvas>
+        </div>
+
     </div>
 
     @push('scripts')
     <script>
+        let ciudadChartInstance = null;
         document.addEventListener('DOMContentLoaded', function () {
             const barrioChart = new Chart(document.getElementById('barrioChart').getContext('2d'), {
                 type: 'pie',
@@ -38,7 +46,7 @@
                     }]
                 },
                 options: { responsive: false }
-    });
+            });
 
             const sexoChart = new Chart(document.getElementById('sexoChart').getContext('2d'), {
                 type: 'pie',
@@ -59,6 +67,20 @@
                     datasets: [{
                         data: @json($edadData['values']),
                         backgroundColor: ['#FBBF24', '#34D399', '#60A5FA', '#A78BFA', '#F87171'],
+                    }]
+                },
+                options: { responsive: false }
+            });
+
+             // Ciudad
+            if (ciudadChartInstance) ciudadChartInstance.destroy();
+            ciudadChartInstance = new Chart(document.getElementById('ciudadChart').getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: @json($ciudadData['labels']),
+                    datasets: [{
+                        data: @json($ciudadData['values']),
+                        backgroundColor: ['#22D3EE', '#6366F1', '#F43F5E', '#10B981', '#F59E0B', '#3B82F6', '#EC4899', '#6B7280', '#F87171', '#A78BFA'],
                     }]
                 },
                 options: { responsive: false }
