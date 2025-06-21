@@ -1,4 +1,4 @@
-<div class="max-w-2xl mx-auto">
+<div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
     <h2 class="text-xl font-semibold mb-4">Gestión de Síntomas</h2>
 
     @if (session()->has('mensaje'))
@@ -16,7 +16,7 @@
 
         <div class="flex space-x-2">
             <button type="submit"
-                class="bg-blue-600 hover:bg-blue-700 text-black px-4 py-2 rounded">
+                class="w-full bg-blue-500 text-white py-2 rounded">
                 {{ $modoEdicion ? 'Actualizar' : 'Agregar' }}
             </button>
             @if($modoEdicion)
@@ -28,7 +28,7 @@
         </div>
     </form>
 
-    <table class="w-full bg-white shadow rounded">
+    <table class="w-full table table-striped">
         <thead>
             <tr class="bg-gray-200 text-left">
                 <th class="px-4 py-2">ID</th>
