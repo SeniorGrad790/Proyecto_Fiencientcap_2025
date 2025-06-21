@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded">
+    <img src="{{ asset('images/logo_proyecto.jpg') }}" alt="Logo" class="w-32 mb-4">
     <h2 class="text-2xl font-bold mb-4 text-center">Iniciar Sesión</h2>
 
     <form wire:submit.prevent="login" class="space-y-4">
