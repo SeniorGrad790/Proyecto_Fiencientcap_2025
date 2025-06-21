@@ -10,6 +10,8 @@ class EstadisticasPacientes extends Component
     public $sexoData = [];
     public $edadData = [];
     public $barrioData = [];
+    public $sintomaData = [];
+
 
     public int $topNBarrios = 6;
 
@@ -127,47 +129,76 @@ class EstadisticasPacientes extends Component
         ];
 
         // --- Gráfico por Ciudad (normalizado) ---
-    $ciudadesRaw = [];
+        $ciudadesRaw = [];
 
-    foreach ($pacientes as $p) {
-        $original = trim($p->ciudad);
-        $normalizado = $this->normalizarTexto($original);
+        foreach ($pacientes as $p) {
+            $original = trim($p->ciudad);
+            $normalizado = $this->normalizarTexto($original);
 
-        if (!isset($ciudadesRaw[$normalizado])) {
-            $ciudadesRaw[$normalizado] = ['count' => 0, 'originales' => []];
+            if (!isset($ciudadesRaw[$normalizado])) {
+                $ciudadesRaw[$normalizado] = ['count' => 0, 'originales' => []];
+            }
+
+            $ciudadesRaw[$normalizado]['count']++;
+            $ciudadesRaw[$normalizado]['originales'][$original] =
+                ($ciudadesRaw[$normalizado]['originales'][$original] ?? 0) + 1;
         }
 
-        $ciudadesRaw[$normalizado]['count']++;
-        $ciudadesRaw[$normalizado]['originales'][$original] =
-            ($ciudadesRaw[$normalizado]['originales'][$original] ?? 0) + 1;
-    }
+        $ciudadesFinal = collect($ciudadesRaw)->map(function ($info) {
+            arsort($info['originales']);
+            $nombreMasFrecuente = array_key_first($info['originales']);
+            return [
+                'nombre' => $nombreMasFrecuente,
+                'count' => $info['count']
+            ];
+        });
 
-    $ciudadesFinal = collect($ciudadesRaw)->map(function ($info) {
-        arsort($info['originales']);
-        $nombreMasFrecuente = array_key_first($info['originales']);
-        return [
-            'nombre' => $nombreMasFrecuente,
-            'count' => $info['count']
+        $ciudadesOrdenadas = $ciudadesFinal->sortByDesc('count');
+
+        $top = $ciudadesOrdenadas->take($this->topNCiudades);
+        $otros = $ciudadesOrdenadas->skip($this->topNCiudades)->sum('count');
+
+        $labels = $top->pluck('nombre')->toArray();
+        $values = $top->pluck('count')->toArray();
+
+        if ($otros > 0) {
+            $labels[] = 'Otros';
+            $values[] = $otros;
+        }
+
+        $this->ciudadData = [
+            'labels' => $labels,
+            'values' => $values,
         ];
-    });
 
-    $ciudadesOrdenadas = $ciudadesFinal->sortByDesc('count');
+        // --- Gráfico por Síntomas más frecuentes ---
+        $frecuenciaSintomas = \App\Models\Diagnostico::with('sintoma')
+            ->get()
+            ->groupBy('id_sintoma')
+            ->map(function ($items) {
+                return [
+                    'nombre' => $items->first()->sintoma->nombre ?? 'Desconocido',
+                    'count' => $items->count(),
+                ];
+            })
+            ->sortByDesc('count')
+            ->values();
 
-    $top = $ciudadesOrdenadas->take($this->topNCiudades);
-    $otros = $ciudadesOrdenadas->skip($this->topNCiudades)->sum('count');
+        $topSintomas = $frecuenciaSintomas->take(6);
+        $otros = $frecuenciaSintomas->skip(6)->sum('count');
 
-    $labels = $top->pluck('nombre')->toArray();
-    $values = $top->pluck('count')->toArray();
+        $labels = $topSintomas->pluck('nombre')->toArray();
+        $values = $topSintomas->pluck('count')->toArray();
 
-    if ($otros > 0) {
-        $labels[] = 'Otros';
-        $values[] = $otros;
-    }
+        if ($otros > 0) {
+            $labels[] = 'Otros';
+            $values[] = $otros;
+        }
 
-    $this->ciudadData = [
-        'labels' => $labels,
-        'values' => $values,
-    ];
+        $this->sintomaData = [
+            'labels' => $labels,
+            'values' => $values,
+        ];
 
     }
 
