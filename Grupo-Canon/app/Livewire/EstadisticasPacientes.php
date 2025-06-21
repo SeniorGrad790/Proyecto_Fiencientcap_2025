@@ -10,14 +10,30 @@ class EstadisticasPacientes extends Component
     public $sexoData = [];
     public $edadData = [];
     public $barrioData = [];
+    public $sintomaData = [];
+    public $enfermedadData = [];
+
 
     public int $topNBarrios = 6;
 
-    protected $updatesQueryString = ['topNBarrios'];
+    //protected $updatesQueryString = ['topNBarrios'];
+
+    public $ciudadData = [];
+    public int $topNCiudades = 6;
+
+    protected $updatesQueryString = ['topNBarrios', 'topNCiudades']; // opcional
+
 
     protected $rules = [
         'topNBarrios' => 'required|integer|min:1|max:20',
+        'topNCiudades' => 'required|integer|min:1|max:20',
     ];
+
+
+    public function updatedTopNCiudades()
+    {
+        $this->generarEstadisticas();
+    }
 
     public function updatedTopNBarrios()
     {
@@ -112,6 +128,108 @@ class EstadisticasPacientes extends Component
             'labels' => $labels,
             'values' => $values,
         ];
+
+        // --- Gráfico por Ciudad (normalizado) ---
+        $ciudadesRaw = [];
+
+        foreach ($pacientes as $p) {
+            $original = trim($p->ciudad);
+            $normalizado = $this->normalizarTexto($original);
+
+            if (!isset($ciudadesRaw[$normalizado])) {
+                $ciudadesRaw[$normalizado] = ['count' => 0, 'originales' => []];
+            }
+
+            $ciudadesRaw[$normalizado]['count']++;
+            $ciudadesRaw[$normalizado]['originales'][$original] =
+                ($ciudadesRaw[$normalizado]['originales'][$original] ?? 0) + 1;
+        }
+
+        $ciudadesFinal = collect($ciudadesRaw)->map(function ($info) {
+            arsort($info['originales']);
+            $nombreMasFrecuente = array_key_first($info['originales']);
+            return [
+                'nombre' => $nombreMasFrecuente,
+                'count' => $info['count']
+            ];
+        });
+
+        $ciudadesOrdenadas = $ciudadesFinal->sortByDesc('count');
+
+        $top = $ciudadesOrdenadas->take($this->topNCiudades);
+        $otros = $ciudadesOrdenadas->skip($this->topNCiudades)->sum('count');
+
+        $labels = $top->pluck('nombre')->toArray();
+        $values = $top->pluck('count')->toArray();
+
+        if ($otros > 0) {
+            $labels[] = 'Otros';
+            $values[] = $otros;
+        }
+
+        $this->ciudadData = [
+            'labels' => $labels,
+            'values' => $values,
+        ];
+
+        // --- Gráfico por Síntomas más frecuentes ---
+        $frecuenciaSintomas = \App\Models\Diagnostico::with('sintoma')
+            ->get()
+            ->groupBy('id_sintoma')
+            ->map(function ($items) {
+                return [
+                    'nombre' => $items->first()->sintoma->nombre ?? 'Desconocido',
+                    'count' => $items->count(),
+                ];
+            })
+            ->sortByDesc('count')
+            ->values();
+
+        $topSintomas = $frecuenciaSintomas->take(6);
+        $otros = $frecuenciaSintomas->skip(6)->sum('count');
+
+        $labels = $topSintomas->pluck('nombre')->toArray();
+        $values = $topSintomas->pluck('count')->toArray();
+
+        if ($otros > 0) {
+            $labels[] = 'Otros';
+            $values[] = $otros;
+        }
+
+        $this->sintomaData = [
+            'labels' => $labels,
+            'values' => $values,
+        ];
+
+        // --- Gráfico por Enfermedades más diagnosticadas ---
+        $frecuenciaEnfermedades = \App\Models\PacienteDiagnostico::with('enfermedad')
+            ->get()
+            ->groupBy('id_enfermedad')
+            ->map(function ($items) {
+                return [
+                    'nombre' => $items->first()->enfermedad->nombre ?? 'Desconocido',
+                    'count' => $items->count(),
+                ];
+            })
+            ->sortByDesc('count')
+            ->values();
+
+        $topEnfermedades = $frecuenciaEnfermedades->take(6);
+        $otros = $frecuenciaEnfermedades->skip(6)->sum('count');
+
+        $labels = $topEnfermedades->pluck('nombre')->toArray();
+        $values = $topEnfermedades->pluck('count')->toArray();
+
+        if ($otros > 0) {
+            $labels[] = 'Otros';
+            $values[] = $otros;
+        }
+
+        $this->enfermedadData = [
+            'labels' => $labels,
+            'values' => $values,
+        ];
+
     }
 
     /**
