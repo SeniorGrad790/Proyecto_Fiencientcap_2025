@@ -4,7 +4,9 @@
     @if (session()->has('success'))
         @if (session()->has('diagnostico'))
             <div class="mt-3">
-                <h5>Diagnóstico estimado:</h5>
+                <h5>Diagnóstico estimado para {{ session('nombre') }} {{ session('apellido') }}</h5>
+
+
                 <ul class="list-group">
                     @foreach (session('diagnostico') as $item)
                         <li class="list-group-item d-flex justify-content-between">

@@ -27,7 +27,7 @@
             @endif
         </div>
     </form>
-
+    <hr class="my-6">
     <table class="w-full table table-striped">
         <thead>
             <tr class="bg-gray-200 text-left">

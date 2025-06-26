@@ -67,6 +67,11 @@ class GuestDashboard extends Component
         // Ejemplo: mostrarlo en la vista
         session()->flash('success', 'Paciente y síntomas guardados exitosamente.');
         session()->flash('diagnostico', $resultados);
+        session()->flash('nombre', $this->nombre);
+        session()->flash('apellido', $this->apellido);
+
+$this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas', 'nro_documento']);
+
 
         $this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas', 'nro_documento']);
     }
