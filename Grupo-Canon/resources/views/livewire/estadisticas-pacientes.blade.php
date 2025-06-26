@@ -4,13 +4,13 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Gráfico por Sexo -->
         <div class="bg-white shadow rounded p-4">
-            <h3 class="text-lg font-semibold mb-2">Distribución de pacientes por sexo</h3>
+            <h3 class="text-lg font-semibold mb-2">Distribución por Sexo</h3>
             <canvas id="sexoChart" width="400" height="400"></canvas>
         </div>
 
         <!-- Gráfico por Edad -->
         <div class="bg-white shadow rounded p-4">
-            <h3 class="text-lg font-semibold mb-2">Distribución etaria</h3>
+            <h3 class="text-lg font-semibold mb-2">Distribución Etaria</h3>
             <canvas id="edadChart" width="400" height="400"></canvas>
         </div>
 
