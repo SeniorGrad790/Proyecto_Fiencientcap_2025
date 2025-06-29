@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
 <div class="flex min-h-screen bg-gray-100" x-data="{ seccion: 'inicio' }">
     <!-- Sidebar -->
     <aside class="w-64 bg-white shadow-md">
@@ -38,4 +35,3 @@
         </div>
     </main>
 </div>
-@endsection

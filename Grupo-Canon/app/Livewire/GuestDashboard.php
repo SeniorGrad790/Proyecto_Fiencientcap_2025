@@ -85,7 +85,7 @@ $this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintoma
     public function render()
     {
         return view('livewire.guest-dashboard')
-            ->layout('components.layouts.app');
+            ->layout('layouts.app');
     }
 
 }
