@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
-    public string $section = 'inicio';
+    public $seccion = 'inicio';
 
     public function render()
     {
