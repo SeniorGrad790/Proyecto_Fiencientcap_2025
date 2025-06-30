@@ -31,7 +31,7 @@
     {{-- Contenido Principal --}}
     <main class="flex-grow-1 p-4">
         @if ($seccion === 'inicio')
-            <h1 class="h4 mb-4">Bienvenido al Dashboard</h1>
+            <center><h1 class="h3 mb-4 fw-bold">Estadísticas de Pacientes</h1></center>
             @livewire('estadisticas-pacientes')
         @elseif ($seccion === 'sintomas')
             <h1 class="h4 mb-4">Gestión de Síntomas</h1>

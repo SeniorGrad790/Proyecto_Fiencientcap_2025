@@ -1,5 +1,4 @@
 <div class="container mt-4 mb-5">
-    <h2 class="mb-4 fw-bold">Estadísticas de Pacientes</h2>
 
     <div class="row gy-4">
         <!-- Sexo -->
@@ -7,7 +6,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Distribución por Sexo</h5>
-                    <canvas id="sexoChart" height="300"></canvas>
+                    <canvas id="sexoChart" height="150"></canvas>
                 </div>
             </div>
         </div>
@@ -17,47 +16,47 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Distribución Etaria</h5>
-                    <canvas id="edadChart" height="300"></canvas>
+                    <canvas id="edadChart" height="150"></canvas>
                 </div>
             </div>
         </div>
 
         <!-- Barrio -->
-        <div class="col-12">
+        <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Distribución por Barrio</h5>
-                    <canvas id="barrioChart" height="300"></canvas>
+                    <canvas id="barrioChart" height="150"></canvas>
                 </div>
             </div>
         </div>
 
         <!-- Ciudad -->
-        <div class="col-12">
+        <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Distribución por Ciudad</h5>
-                    <canvas id="ciudadChart" height="300"></canvas>
+                    <canvas id="ciudadChart" height="150"></canvas>
                 </div>
             </div>
         </div>
 
         <!-- Síntomas -->
-        <div class="col-12">
+        <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Síntomas más frecuentes</h5>
-                    <canvas id="sintomaChart" height="300"></canvas>
+                    <canvas id="sintomaChart" height="150"></canvas>
                 </div>
             </div>
         </div>
 
         <!-- Enfermedades -->
-        <div class="col-12">
+        <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Enfermedades más diagnosticadas</h5>
-                    <canvas id="enfermedadChart" height="300"></canvas>
+                    <canvas id="enfermedadChart" height="150"></canvas>
                 </div>
             </div>
         </div>
@@ -156,4 +155,3 @@
     });
 </script>
 @endpush
-
