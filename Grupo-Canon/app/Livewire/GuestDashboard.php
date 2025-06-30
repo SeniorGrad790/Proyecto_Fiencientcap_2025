@@ -13,7 +13,7 @@ use App\Models\Enfermedad;
 class GuestDashboard extends Component
 {
     public $nombre, $apellido, $edad, $sexo, $barrio, $ciudad;
-    public $nro_documento = '0'; // Default value
+    public $nro_documento = ''; // Default value
     public $sintomas = [];
     public $todosLosSintomas = [];
 
@@ -70,7 +70,7 @@ class GuestDashboard extends Component
         session()->flash('nombre', $this->nombre);
         session()->flash('apellido', $this->apellido);
 
-$this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas', 'nro_documento']);
+        //$this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas', 'nro_documento']);
 
 
         $this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas', 'nro_documento']);
