@@ -1,20 +1,29 @@
-<!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ config('app.name', 'Laravel App') }}</title>
 
-    <meta charset="UTF-8">
-    <title>App Livewire</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- Assets compilados con Vite --}}
+    @vite(['resources/js/app.js'])
+
     @livewireStyles
 </head>
-<body class="bg-gray-100">
+<body>
 
-    @yield('content')
+    {{-- Navbar --}}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">DiagnosticApp</a>
+        </div>
+    </nav>
+
+    {{-- Contenido dinámico Livewire --}}
+    <main class="container">
+        {{ $slot }}
+    </main>
 
     @livewireScripts
-    @stack('scripts')
-
 </body>
 </html>

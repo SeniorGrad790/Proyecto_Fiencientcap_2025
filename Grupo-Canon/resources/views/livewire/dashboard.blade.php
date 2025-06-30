@@ -1,41 +1,48 @@
-@extends('layouts.app')
+<div class="d-flex min-vh-100 bg-light">
 
-@section('content')
-<div class="flex min-h-screen bg-gray-100" x-data="{ seccion: 'inicio' }">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white shadow-md">
-        <div class="p-4 text-xl font-bold border-b">Panel de Control</div>
-        <nav class="p-4 space-y-2">
-            <button @click="seccion = 'inicio'" class="block w-full text-left px-4 py-2 rounded hover:bg-gray-200">Inicio</button>
-            <button @click="seccion = 'sintomas'" class="block w-full text-left px-4 py-2 rounded hover:bg-gray-200">CRUD de Síntomas</button>
-            <button @click="seccion = 'enfermedades'" class="block w-full text-left px-4 py-2 rounded hover:bg-gray-200">CRUD de Enfermedades</button>
-            <button @click="seccion = 'relacion'" class="block w-full text-left px-4 py-2 rounded hover:bg-gray-200">Relación Enfermedad - Síntoma</button>
+    {{-- Sidebar --}}
+    <aside class="bg-white border-end shadow-sm" style="width: 250px;">
+        <div class="p-3 fw-bold border-bottom bg-primary text-white">
+            Panel de Control
+        </div>
+        <nav class="d-grid gap-2 p-3">
+            <button wire:click="$set('seccion', 'inicio')" class="btn btn-outline-primary">
+                Inicio
+            </button>
+            <button wire:click="$set('seccion', 'sintomas')" class="btn btn-outline-primary">
+                CRUD de Síntomas
+            </button>
+            <button wire:click="$set('seccion', 'enfermedades')" class="btn btn-outline-primary">
+                CRUD de Enfermedades
+            </button>
+            <button wire:click="$set('seccion', 'relacion')" class="btn btn-outline-primary">
+                Relación Enfermedad - Síntoma
+            </button>
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button class="w-full text-left px-4 rounded bg-danger text-white py-2 rounded">Cerrar Sesión</button>
+                <button type="submit" class="btn btn-danger">
+                    Cerrar Sesión
+                </button>
             </form>
         </nav>
     </aside>
 
-    <!-- Main content -->
-    <main class="flex-1 p-6">
-        <div x-show="seccion === 'inicio'" x-cloak>
-            <!--<h1 class="text-2xl font-semibold">Bienvenido al Dashboard</h1>-->
+    {{-- Contenido Principal --}}
+    <main class="flex-grow-1 p-4">
+        @if ($seccion === 'inicio')
+            <h1 class="h4 mb-4">Bienvenido al Dashboard</h1>
             @livewire('estadisticas-pacientes')
-        </div>
-
-        <div x-show="seccion === 'sintomas'" x-cloak>
+        @elseif ($seccion === 'sintomas')
+            <h1 class="h4 mb-4">Gestión de Síntomas</h1>
             @livewire('crud-sintomas')
-        </div>
-
-        <div x-show="seccion === 'enfermedades'" x-cloak>
+        @elseif ($seccion === 'enfermedades')
+            <h1 class="h4 mb-4">Gestión de Enfermedades</h1>
             @livewire('crud-enfermedades')
-        </div>
-
-        <div x-show="seccion === 'relacion'" x-cloak>
+        @elseif ($seccion === 'relacion')
+            <h1 class="h4 mb-4">Relación Enfermedad - Síntoma</h1>
             @livewire('relacion-enfermedad-sintoma')
-        </div>
+        @endif
     </main>
+
 </div>
-@endsection

@@ -70,6 +70,9 @@ class GuestDashboard extends Component
         session()->flash('nombre', $this->nombre);
         session()->flash('apellido', $this->apellido);
 
+        //$this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas', 'nro_documento']);
+
+
         $this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas', 'nro_documento']);
     }
 
@@ -82,7 +85,7 @@ class GuestDashboard extends Component
     public function render()
     {
         return view('livewire.guest-dashboard')
-            ->layout('components.layouts.app');
+            ->layout('layouts.app');
     }
 
 }
