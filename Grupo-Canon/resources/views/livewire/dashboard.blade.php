@@ -2,26 +2,26 @@
 
     {{-- Sidebar --}}
     <aside class="bg-white border-end shadow-sm" style="width: 250px;">
-        <div class="p-3 fw-bold border-bottom bg-primary text-white">
+        <div class="p-3 fw-bold text-white border-bottom" style="background-color: #0b3c5d;">
             Panel de Control
         </div>
-        <nav class="d-grid gap-2 p-3">
-            <button wire:click="$set('seccion', 'inicio')" class="btn btn-outline-primary">
+        <nav class="p-3 d-flex flex-column gap-2">
+            <button wire:click="$set('seccion', 'inicio')" class="btn text-white text-start" style="background-color: #0b3c5d;">
                 Inicio
             </button>
-            <button wire:click="$set('seccion', 'sintomas')" class="btn btn-outline-primary">
+            <button wire:click="$set('seccion', 'sintomas')" class="btn text-white text-start" style="background-color: #0b3c5d;">
                 CRUD de Síntomas
             </button>
-            <button wire:click="$set('seccion', 'enfermedades')" class="btn btn-outline-primary">
+            <button wire:click="$set('seccion', 'enfermedades')" class="btn text-white text-start" style="background-color: #0b3c5d;">
                 CRUD de Enfermedades
             </button>
-            <button wire:click="$set('seccion', 'relacion')" class="btn btn-outline-primary">
+            <button wire:click="$set('seccion', 'relacion')" class="btn text-white text-start" style="background-color: #0b3c5d;">
                 Relación Enfermedad - Síntoma
             </button>
 
-            <form method="POST" action="{{ route('logout') }}">
+            <form method="POST" action="{{ route('logout') }}" class="mt-2">
                 @csrf
-                <button type="submit" class="btn btn-danger">
+                <button type="submit" class="btn btn-danger text-start">
                     Cerrar Sesión
                 </button>
             </form>
@@ -31,7 +31,9 @@
     {{-- Contenido Principal --}}
     <main class="flex-grow-1 p-4">
         @if ($seccion === 'inicio')
-            <center><h1 class="h3 mb-4 fw-bold">Estadísticas de Pacientes</h1></center>
+            <div class="text-center">
+                <h1 class="h3 mb-4 fw-bold">Estadísticas de Pacientes</h1>
+            </div>
             @livewire('estadisticas-pacientes')
         @elseif ($seccion === 'sintomas')
             <h1 class="h4 mb-4">Gestión de Síntomas</h1>
