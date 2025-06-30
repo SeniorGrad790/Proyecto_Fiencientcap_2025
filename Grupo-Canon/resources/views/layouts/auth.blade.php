@@ -10,19 +10,10 @@
 
     @livewireStyles
 </head>
-<body>
-
-    {{-- Navbar --}}
-    <nav class="navbar navbar-expand-lg navbar-dark mb-4" style="background-color: #0b3c5d;">
-        <div class="container">
-            <a class="navbar-brand" href="#">DiagnosticApp</a>
-        </div>
-    </nav>
+<body style="margin: 0; padding: 0;">
 
     {{-- Contenido dinámico Livewire --}}
-    <main class="container">
-        {{ $slot }}
-    </main>
+    {{ $slot }}
 
     @livewireScripts
 </body>

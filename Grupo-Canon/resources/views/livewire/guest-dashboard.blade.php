@@ -79,12 +79,12 @@
                 </div>
 
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">Guardar Paciente</button>
+                    <button type="submit" class="btn text-white " style="background-color: #0b3c5d;">Guardar Paciente</button>
                 </div>
             </form>
 
             <div class="text-center mt-4">
-                <button wire:click="goToLogin" class="btn btn-primary">¿Tienes una cuenta? Iniciar sesión</button>
+                <button wire:click="goToLogin" class="btn text-white " style="background-color: #0b3c5d;">¿Tienes una cuenta? Iniciar sesión</button>
             </div>
         </div>
 
