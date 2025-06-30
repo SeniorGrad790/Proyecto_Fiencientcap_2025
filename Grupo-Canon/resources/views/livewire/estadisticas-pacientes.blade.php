@@ -1,69 +1,77 @@
-<div class="p-6">
-    <h2 class="text-2xl font-bold mb-4">Estadísticas de Pacientes</h2>
+<div class="container mt-4 mb-5">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Gráfico por Sexo -->
-        <div class="bg-white shadow rounded p-4">
-            <h3 class="text-lg font-semibold mb-2">Distribución por Sexo</h3>
-            <canvas id="sexoChart" width="400" height="400"></canvas>
+    <div class="row gy-4">
+        <!-- Sexo -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Distribución por Sexo</h5>
+                    <canvas id="sexoChart" height="150"></canvas>
+                </div>
+            </div>
         </div>
 
-        <!-- Gráfico por Edad -->
-        <div class="bg-white shadow rounded p-4">
-            <h3 class="text-lg font-semibold mb-2">Distribución Etaria</h3>
-            <canvas id="edadChart" width="400" height="400"></canvas>
+        <!-- Edad -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Distribución Etaria</h5>
+                    <canvas id="edadChart" height="150"></canvas>
+                </div>
+            </div>
         </div>
 
-        <!-- Gráfico por Barrio -->
-         
-        <div class="bg-white shadow rounded p-4 col-span-1 md:col-span-2">
-            <h3 class="text-lg font-semibold mb-2">Distribución por Barrio</h3>
-            <canvas id="barrioChart" width="400" height="400"></canvas>
+        <!-- Barrio -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Distribución por Barrio</h5>
+                    <canvas id="barrioChart" height="150"></canvas>
+                </div>
+            </div>
         </div>
 
-        <!-- Gráfico por Ciudad -->
-        <div class="bg-white shadow rounded p-4 col-span-1 md:col-span-2">
-
-            <h3 class="text-lg font-semibold mb-2">Distribución por Ciudad</h3>
-            <canvas id="ciudadChart" width="400" height="400"></canvas>
+        <!-- Ciudad -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Distribución por Ciudad</h5>
+                    <canvas id="ciudadChart" height="150"></canvas>
+                </div>
+            </div>
         </div>
 
-        <!-- Gráfico por Síntomas -->
-        <div class="bg-white shadow rounded p-4 col-span-1 md:col-span-2">
-            <h3 class="text-lg font-semibold mb-2">Síntomas más frecuentes</h3>
-            <canvas id="sintomaChart" width="400" height="400"></canvas>
+        <!-- Síntomas -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Síntomas más frecuentes</h5>
+                    <canvas id="sintomaChart" height="150"></canvas>
+                </div>
+            </div>
         </div>
 
-        <!-- Gráfico por Enfermedades -->
-        <div class="bg-white shadow rounded p-4 col-span-1 md:col-span-2">
-            <h3 class="text-lg font-semibold mb-2">Enfermedades más diagnosticadas</h3>
-            <canvas id="enfermedadChart" width="400" height="400"></canvas>
+        <!-- Enfermedades -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Enfermedades más diagnosticadas</h5>
+                    <canvas id="enfermedadChart" height="150"></canvas>
+                </div>
+            </div>
         </div>
-
     </div>
+</div>
+@push('scripts')
+<script>
+    let ciudadChartInstance = null;
+    let sintomaChartInstance = null;
+    let enfermedadChartInstance = null;
 
-    @push('scripts')
-    <script>
-        let ciudadChartInstance = null;
-        let sintomaChartInstance = null;
-        let enfermedadChartInstance = null;
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const barrioChart = new Chart(document.getElementById('barrioChart').getContext('2d'), {
-                type: 'pie',
-                data: {
-                    labels: @json($barrioData['labels']),
-                    datasets: [{
-                        data: @json($barrioData['values']),
-                        backgroundColor: [
-                            '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#6B7280'
-                        ],
-                    }]
-                },
-                options: { responsive: false }
-            });
-
-            const sexoChart = new Chart(document.getElementById('sexoChart').getContext('2d'), {
+    function renderCharts() {
+        // Usamos requestAnimationFrame para garantizar render real del DOM
+        requestAnimationFrame(() => {
+            const sexoChart = new Chart(document.getElementById('sexoChart'), {
                 type: 'pie',
                 data: {
                     labels: @json($sexoData['labels']),
@@ -71,11 +79,10 @@
                         data: @json($sexoData['values']),
                         backgroundColor: ['#3B82F6', '#F472B6'],
                     }]
-                },
-                options: { responsive: false }
+                }
             });
 
-            const edadChart = new Chart(document.getElementById('edadChart').getContext('2d'), {
+            const edadChart = new Chart(document.getElementById('edadChart'), {
                 type: 'pie',
                 data: {
                     labels: @json($edadData['labels']),
@@ -83,13 +90,22 @@
                         data: @json($edadData['values']),
                         backgroundColor: ['#FBBF24', '#34D399', '#60A5FA', '#A78BFA', '#F87171'],
                     }]
-                },
-                options: { responsive: false }
+                }
             });
 
-             // Ciudad
+            const barrioChart = new Chart(document.getElementById('barrioChart'), {
+                type: 'pie',
+                data: {
+                    labels: @json($barrioData['labels']),
+                    datasets: [{
+                        data: @json($barrioData['values']),
+                        backgroundColor: ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#6B7280'],
+                    }]
+                }
+            });
+
             if (ciudadChartInstance) ciudadChartInstance.destroy();
-            ciudadChartInstance = new Chart(document.getElementById('ciudadChart').getContext('2d'), {
+            ciudadChartInstance = new Chart(document.getElementById('ciudadChart'), {
                 type: 'pie',
                 data: {
                     labels: @json($ciudadData['labels']),
@@ -97,12 +113,11 @@
                         data: @json($ciudadData['values']),
                         backgroundColor: ['#22D3EE', '#6366F1', '#F43F5E', '#10B981', '#F59E0B', '#3B82F6', '#EC4899', '#6B7280', '#F87171', '#A78BFA'],
                     }]
-                },
-                options: { responsive: false }
+                }
             });
-            // Síntomas
+
             if (sintomaChartInstance) sintomaChartInstance.destroy();
-            sintomaChartInstance = new Chart(document.getElementById('sintomaChart').getContext('2d'), {
+            sintomaChartInstance = new Chart(document.getElementById('sintomaChart'), {
                 type: 'pie',
                 data: {
                     labels: @json($sintomaData['labels']),
@@ -110,13 +125,11 @@
                         data: @json($sintomaData['values']),
                         backgroundColor: ['#F43F5E', '#8B5CF6', '#10B981', '#F59E0B', '#3B82F6', '#EC4899', '#6B7280'],
                     }]
-                },
-                options: { responsive: false }
+                }
             });
 
-             // Enfermedades
             if (enfermedadChartInstance) enfermedadChartInstance.destroy();
-            enfermedadChartInstance = new Chart(document.getElementById('enfermedadChart').getContext('2d'), {
+            enfermedadChartInstance = new Chart(document.getElementById('enfermedadChart'), {
                 type: 'pie',
                 data: {
                     labels: @json($enfermedadData['labels']),
@@ -124,12 +137,21 @@
                         data: @json($enfermedadData['values']),
                         backgroundColor: ['#22D3EE', '#6366F1', '#F43F5E', '#10B981', '#F59E0B', '#3B82F6', '#6B7280'],
                     }]
-                },
-                options: { responsive: false }
+                }
             });
         });
-    </script>
-    @endpush
+    }
 
+    // Ejecutar en carga inicial
+    document.addEventListener('DOMContentLoaded', renderCharts);
 
-</div>
+    // Re-ejecutar al terminar un update de Livewire
+    document.addEventListener('livewire:load', () => {
+        Livewire.hook('message.processed', () => {
+            requestAnimationFrame(() => {
+                setTimeout(renderCharts, 100);
+            });
+        });
+    });
+</script>
+@endpush

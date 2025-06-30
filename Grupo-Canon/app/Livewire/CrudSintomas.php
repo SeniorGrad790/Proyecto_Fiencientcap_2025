@@ -38,7 +38,7 @@ class CrudSintomas extends Component
         $sintoma = Sintoma::findOrFail($id);
         \Log::info("sintoma {$sintoma} {$sintoma->nombre}");
         $this->sintoma_id = $sintoma->id_sintoma;
-        $this->nombre = "ssssss";//$sintoma->nombre;
+        $this->nombre = $sintoma->nombre;
         $this->modoEdicion = true;
     }
 

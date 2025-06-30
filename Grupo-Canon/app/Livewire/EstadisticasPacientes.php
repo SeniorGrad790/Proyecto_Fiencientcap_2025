@@ -185,8 +185,8 @@ class EstadisticasPacientes extends Component
             ->sortByDesc('count')
             ->values();
 
-        $topSintomas = $frecuenciaSintomas->take(6);
-        $otros = $frecuenciaSintomas->skip(6)->sum('count');
+        $topSintomas = $frecuenciaSintomas->take(4);
+        $otros = $frecuenciaSintomas->skip(4)->sum('count');
 
         $labels = $topSintomas->pluck('nombre')->toArray();
         $values = $topSintomas->pluck('count')->toArray();
@@ -214,8 +214,8 @@ class EstadisticasPacientes extends Component
             ->sortByDesc('count')
             ->values();
 
-        $topEnfermedades = $frecuenciaEnfermedades->take(6);
-        $otros = $frecuenciaEnfermedades->skip(6)->sum('count');
+        $topEnfermedades = $frecuenciaEnfermedades->take(4);
+        $otros = $frecuenciaEnfermedades->skip(4)->sum('count');
 
         $labels = $topEnfermedades->pluck('nombre')->toArray();
         $values = $topEnfermedades->pluck('count')->toArray();
