@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary w-100">
+                    <button type="submit" class="btn text-white w-100" style="background-color: #0b3c5d;" >
                         {{ $modoEdicion ? 'Actualizar' : 'Agregar' }}
                     </button>
 
@@ -47,11 +47,11 @@
                                 
                                 <td>{{ $sintoma->nombre }}</td>
                                 <td>
-                                    <button wire:click="editar({{ $sintoma->id_sintoma }})" class="btn btn-sm btn-outline-primary me-2">
+                                    <button wire:click="editar({{ $sintoma->id_sintoma }})" class="btn btn-sm text-white me-2" style="background-color: #0b3c5d;">
                                         Editar
                                     </button>
-                                    <button wire:click="eliminar({{ $sintoma->id_sintoma }})"
-                                            class="btn btn-sm btn-outline-danger"
+                                    <button wire:click="eliminar({{ $sintoma->id_sintoma }}) "
+                                            class="btn btn-sm text-white" style="background-color:rgb(208, 16, 16);"
                                             onclick="return confirm('¿Seguro que deseas eliminar este síntoma?')">
                                         Eliminar
                                     </button>

@@ -7,7 +7,7 @@
             <form wire:submit.prevent="guardar">
                 <div class="row">
                     <!-- Subcolumna izquierda (documento, nombre, apellido, ciudad) -->
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6 fw-bold">
                         <div class="mb-3">
                             <label for="nro_documento" class="form-label">Documento C.I</label>
                             <input id="nro_documento" type="text" wire:model="nro_documento" class="form-control">
@@ -34,7 +34,7 @@
                     </div>
 
                     <!-- Subcolumna derecha (edad, sexo, barrio) -->
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6 fw-bold">
                         <div class="mb-3">
                             <label for="edad" class="form-label">Edad</label>
                             <input id="edad" type="number" wire:model="edad" class="form-control">
@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Síntomas</label>
+                    <label class="form-label fw-bold">Síntomas</label>
                     <div class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
                         @foreach ($todosLosSintomas as $sintoma)
                             <div class="form-check">

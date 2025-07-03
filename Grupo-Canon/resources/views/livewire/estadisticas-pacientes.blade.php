@@ -6,7 +6,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Distribución por Sexo</h5>
-                    <canvas id="sexoChart" height="150"></canvas>
+                    <canvas id="sexoChart" height="100"></canvas>
                 </div>
             </div>
         </div>
@@ -16,7 +16,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Distribución Etaria</h5>
-                    <canvas id="edadChart" height="150"></canvas>
+                    <canvas id="edadChart" height="100"></canvas>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Distribución por Barrio</h5>
-                    <canvas id="barrioChart" height="150"></canvas>
+                    <canvas id="barrioChart" height="100"></canvas>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Distribución por Ciudad</h5>
-                    <canvas id="ciudadChart" height="150"></canvas>
+                    <canvas id="ciudadChart" height="100"></canvas>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Síntomas más frecuentes</h5>
-                    <canvas id="sintomaChart" height="150"></canvas>
+                    <canvas id="sintomaChart" height="100"></canvas>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Enfermedades más diagnosticadas</h5>
-                    <canvas id="enfermedadChart" height="150"></canvas>
+                    <canvas id="enfermedadChart" height="100"></canvas>
                 </div>
             </div>
         </div>
