@@ -16,6 +16,8 @@ class GuestDashboard extends Component
     public $nro_documento = ''; // Default value
     public $sintomas = [];
     public $todosLosSintomas = [];
+    public $mostrarDiagnostico = true;
+
 
     public function mount()
     {
@@ -52,6 +54,8 @@ class GuestDashboard extends Component
             ]);
         }
 
+        $this->mostrarDiagnostico = true;
+
         // Diagnóstico automático
         $diagnosticoService = new DiagnosticoService();
         $resultados = $diagnosticoService->diagnosticar($this->sintomas);
@@ -70,12 +74,19 @@ class GuestDashboard extends Component
         session()->flash('nombre', $this->nombre);
         session()->flash('apellido', $this->apellido);
 
-        //$this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas', 'nro_documento']);
-
-
-        $this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas', 'nro_documento']);
     }
 
+    public function cerrarDiagnostico()
+    {
+        $this->clean_data();
+        $this->mostrarDiagnostico = false;
+        session()->forget(['success', 'diagnostico', 'nombre', 'apellido']);
+    }
+
+    public function clean_data()
+    {
+        $this->reset(['nombre', 'apellido', 'edad', 'sexo', 'barrio', 'ciudad', 'sintomas', 'nro_documento']);
+    }
 
     public function goToLogin()
     {

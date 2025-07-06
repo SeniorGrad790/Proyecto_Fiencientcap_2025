@@ -90,11 +90,16 @@
 
         <!-- Columna derecha: Diagnóstico -->
         <div class="col-md-6">
-            @if (session()->has('success'))
+            @if (session()->has('success') && $mostrarDiagnostico)
                 @if (session()->has('diagnostico'))
-                    <div class="mt-3">
+                    <div 
+                        x-data="{ show: true }" 
+                        x-show="show" 
+                        x-transition
+                        class="mt-3"
+                    >
                         <h5>Diagnóstico estimado para {{ session('nombre') }} {{ session('apellido') }}</h5>
-                        <ul class="list-group">
+                        <ul class="list-group mb-3">
                             @foreach (session('diagnostico') as $item)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     {{ $item['enfermedad'] }}
@@ -102,6 +107,15 @@
                                 </li>
                             @endforeach
                         </ul>
+
+                        <div class="d-grid gap-2 mb-3">
+                            <button 
+                                wire:click="cerrarDiagnostico"
+                                class="btn btn-outline-danger"
+                            >
+                                Cerrar diagnóstico
+                            </button>
+                        </div>
                     </div>
                 @endif
 
@@ -116,5 +130,6 @@
                 </div>
             @endif
         </div>
+
     </div>
 </div>
