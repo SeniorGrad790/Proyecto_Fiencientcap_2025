@@ -19,7 +19,7 @@
                     @endforeach
                 </select>
                 <div class="mt-2">
-                    <button wire:click="cargarSintomasRelacionados" class="btn btn-link btn-sm px-0">
+                    <button wire:click="cargarSintomasRelacionados" class="btn btn-sm text-white px-0" style="background-color: #0b3c5d;">
                         Cargar síntomas
                     </button>
                 </div>
@@ -48,7 +48,7 @@
                 </div>
 
                 <div>
-                    <button wire:click="guardarRelacion" class="btn btn-primary">
+                    <button wire:click="guardarRelacion" class="btn text-white" style="background-color: #0b3c5d;">
                         Guardar relación
                     </button>
                 </div>

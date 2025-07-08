@@ -9,9 +9,8 @@
                 </div>
             @endif
 
-            <form wire:submit.prevent="{{ $modoEdicion ? 'actualizar' : 'guardar' }}">
+            <form wire:submit.prevent="{{ $modoEdicion ? 'actualizar' : 'guardar' }}" class="mb-4">
                 <div class="mb-3">
-                    <label class="form-label">Nombre</label>
                     <input type="text" wire:model="nombre" class="form-control" placeholder="Nombre de la enfermedad">
                     @error('nombre')
                         <div class="form-text text-danger">{{ $message }}</div>
@@ -19,7 +18,7 @@
                 </div>
 
                 <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary w-100">
+                    <button type="submit" class="btn text-white w-100" style="background-color: #0b3c5d;">
                         {{ $modoEdicion ? 'Actualizar' : 'Guardar' }}
                     </button>
 
@@ -37,29 +36,31 @@
                 <table class="table table-bordered align-middle">
                     <thead class="table-light">
                         <tr>
-                            
                             <th>Nombre</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($enfermedades as $enfermedad)
+                        @forelse ($enfermedades as $enfermedad)
                             <tr>
-                                
                                 <td>{{ $enfermedad->nombre }}</td>
                                 <td>
                                     <button wire:click="editar({{ $enfermedad->id_enfermedad }})"
-                                            class="btn btn-sm btn-outline-primary me-2">
+                                            class="btn btn-sm text-white me-2" style="background-color: #0b3c5d;">
                                         Editar
                                     </button>
                                     <button wire:click="eliminar({{ $enfermedad->id_enfermedad }})"
-                                            class="btn btn-sm btn-outline-danger"
+                                            class="btn btn-sm text-white" style="background-color:rgb(208, 16, 16);"
                                             onclick="return confirm('¿Seguro que deseas eliminar esta enfermedad?')">
                                         Eliminar
                                     </button>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="2" class="text-center text-muted">No hay enfermedades registradas.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
